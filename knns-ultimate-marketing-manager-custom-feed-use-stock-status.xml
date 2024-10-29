@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<id><![CDATA[[OCMOD] Product Feeds > Ultimate Marketing Manager > Custom, use of stock_status]]></id>
+	<name><![CDATA[Feeds > Ultimate Marketing Manager > Custom, stock_status]]></name>
+	<code>knns-ultimate-marketing-manager-custom-feed-use-stock-status</code>
+	<version>0.1.0</version>
+	<author><![CDATA[<font color="#7F458C"><b>kanenas.net (aka Nikolas Branis)</b></font> - nbran@kanenas.net]]></author>
+	<link>https://kanenas.net/</link>
+	<file path="catalog/controller/extension/feed/custom.php" error="log">
+		<operation error="skip">
+			<search><![CDATA[$product_weight = $product['weight'];]]></search>
+			<add position="before"><![CDATA[
+                                    //knns-ultimate-marketing-manager-custom-feed-use-stock-status.xml (start)
+                                    $product_stock_status = $product['stock_status'];
+                                    // knns-ultimate-marketing-manager-custom-feed-use-stock-status.xml (end)
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[$product_data['weight'] = $weight;]]></search>
+			<add position="before"><![CDATA[
+                                    //knns-ultimate-marketing-manager-custom-feed-use-stock-status.xml (start)
+                                    $product_data['stock_status'] = $product_stock_status;
+                                    //knns-ultimate-marketing-manager-custom-feed-use-stock-status.xml (end)
+			]]></add>
+		</operation>
+		<operation error="skip">
+			<search><![CDATA[$template = str_replace('#weight#', (string)$product_data['weight'], $template);]]></search>
+			<add position="before"><![CDATA[
+        //knns-ultimate-marketing-manager-custom-feed-use-stock-status.xml (start)
+        $template = str_replace('#stock_status#', $product_data['stock_status'], $template);
+        //knns-ultimate-marketing-manager-custom-feed-use-stock-status.xml (end)
+			]]></add>
+		</operation>
+	</file>
+</modification>	
